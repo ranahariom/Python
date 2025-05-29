@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+ <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .order-table {
+      background-color: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+    .table-responsive {
+    margin-top: 69px;
+}
+
+    .order-table th {
+      background-color: #f1f3f5;
+      color: #333;
+    }
+
+    .order-table td, .order-table th {
+      vertical-align: middle;
+    }
+
+    .badge-status {
+      font-size: 0.8rem;
+      padding: 0.4em 0.6em;
+    }
+
+    @media (max-width: 576px) {
+      .table-responsive {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+<div class="container-fluid page-header py-5">
+            <h1 class="text-center text-white display-6">Shop</h1>
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active text-white">Order list</li>
+            </ol>
+        </div>
+    <div class="table-responsive">
+<table class="table table-hover order-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Total</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in order %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ i.first_name }}</td>
+        <td>{{ i.last_name }}</td>
+        <td>{{ i.total }}</td>
+        <td>
+          {% if i.order_status == "Complete" %}
+            <span class="badge bg-success badge-status">Completed</span>
+          {% else %}
+            <span class="badge bg-warning text-dark badge-status">Pending</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="5" class="text-center">No orders found.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+     </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+{% endblock %}
